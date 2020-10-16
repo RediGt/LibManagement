@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -77,6 +78,21 @@ namespace LibManagement
                 System.Diagnostics.Process.Start("https://www.instagram.com/?hl=en");
 
             }
+        }
+
+        private void bttLogin_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = "data source = DESKTOP-TVBPA8T; database=LibManagement; integrated security=True ";
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = "SELECT * FROM loginTable WHERE username = '"+tBoxUsername.Text+"' AND pass = '"+tBoxPassword.Text+"'";
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+
+            MessageBox.Show("Connecton succeded");
         }
     }
 }
